@@ -11,7 +11,6 @@ export default class ArticlesList extends Component {
     fetch('article')
       .then(response => response.json())
       .then(response => {
-        console.log(response);
         this.setState({
           articles: response.articles
         });
@@ -25,10 +24,10 @@ export default class ArticlesList extends Component {
   render() {
       return (
         <div>
-          {this.state.articles.map(article =>
+          {this.state.articles.map((article, index) =>
             <div>
               <Article
-                {...article} id={article._id} key={article._id}
+                {...article} id={article._id} key={index}
               />
               <hr/>
             </div>
