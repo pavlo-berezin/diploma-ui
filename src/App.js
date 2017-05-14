@@ -1,18 +1,33 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 import './App.css';
 import ArticlesList from './containers/ArticlesList'
+import CreateArticle from './containers/CreateArticle'
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+        <Router>
+            <div className="App">
+            <div className="App-header top-bar">
+                <div class="top-bar-left">
+                    <ul class="dropdown menu" data-dropdown-menu>
+                        <li class="menu-text">Analyzer 3000</li>
+                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/create">Create</Link></li>
+                    </ul>
+                </div>
+            </div>
+           <div className="app-body">
+                <Route exact path="/" component={ArticlesList}/>
+                <Route path="/create" component={CreateArticle}/>
+            </div>
         </div>
-        <ArticlesList></ArticlesList>
-      </div>
+        </Router>
     );
   }
 }
