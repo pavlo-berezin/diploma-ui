@@ -19,7 +19,9 @@ export default class CreateArticle extends Component {
         })
         .then((res) => res.json())
         .then((data) => {
-            //TODO: Go back or alert
+            if(data.status === 'OK') {
+                this.props.history.push('/')
+            }
         })
   }
 
