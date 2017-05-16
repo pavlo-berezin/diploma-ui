@@ -25,10 +25,8 @@ export default class ArticlesList extends Component {
       return (
         <div>
             {this.state.articles.map((article, index) =>
-                <div>
-                    <Article
-                        {...article} id={article._id} key={article._id}
-                    />
+                <div key={article._id}>
+                    <Article {...article} id={article._id} />
                     <Link to={'/article/' + article._id} key={index}>Show More</Link>
                     <hr/>
                 </div>

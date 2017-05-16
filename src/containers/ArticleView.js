@@ -13,6 +13,7 @@ export default class ArticlesView extends Component {
         fetch(`/article/${id}`)
             .then(response => response.json())
             .then(response => {
+                console.log(response.article);
                 this.setState({
                     article: response.article
                 });
