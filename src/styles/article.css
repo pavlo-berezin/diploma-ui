@@ -4,5 +4,21 @@
   font-size: 24px;
   padding: 5px; }
 
+.article .body {
+  text-align: left; }
+
 .article .badges-list-container {
   text-align: left; }
+
+.article-view {
+  background-color: #fafafa;
+  padding: 20px 10px;
+  margin-bottom: 30px;
+  box-shadow: 2px 1px 2px #888;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto; }
+  .article-view .delete-btn {
+    color: #D32F2F;
+    cursor: pointer;
+    float: right; }

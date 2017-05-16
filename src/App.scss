@@ -2,13 +2,14 @@
 @import "styles/article.scss";
 @import "styles/badges-list.scss";
 
-html, body, #root, .App {
+html, body, #root {
     height: 100%;
 }
 
 .App {
   text-align: center;
   background-color: #EEEEEE;
+  min-height: 100%;
 }
 
 .App-header {

@@ -40,12 +40,11 @@ export default class ArticlesView extends Component {
 
   render() {
       return (
-        <div>
+        <div className="article-view">
+            <span className="delete-btn" onClick={ () => this.onDeleteArticleClick(this.state.article)}>Delete</span>
             <Article
                 {...this.state.article} id={this.state.article._id} key={this.state.article._id}
             />
-            <hr/>
-            <button onClick={ () => this.onDeleteArticleClick(this.state.article)}>delete</button>
         </div>
       )
   }
