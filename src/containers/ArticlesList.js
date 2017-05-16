@@ -23,12 +23,11 @@ export default class ArticlesList extends Component {
 
   render() {
       return (
-        <div>
+        <div className="articles-list">
             {this.state.articles.map((article, index) =>
-                <div key={article._id}>
-                    <Article {...article} id={article._id} />
-                    <Link to={'/article/' + article._id} key={index}>Show More</Link>
-                    <hr/>
+                <div key={article._id} className="article-container">
+                    <Article {...article} id={article._id}/>
+                    <Link to={'/article/' + article._id} key={index} className="more-link">Go to article</Link>
                 </div>
             )}
         </div>

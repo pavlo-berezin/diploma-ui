@@ -13,19 +13,19 @@ export default class Article extends Component {
 
   render() {
     return (
-      <div>
-        <h2>{this.props.title}</h2>
-        <div>
-            <BadgesList categories={this.props.categories}></BadgesList>
+        <div className="article">
+            <span className="title">{this.props.title}</span>
+            <div className="sub-title">
+                <span className="author">{this.props.author}</span>
+                <span className="date">{new Date(this.props.date).toLocaleDateString()}</span>
+            </div>
+            <div className="badges-list-container">
+                <BadgesList categories={this.props.categories}></BadgesList>
+            </div>
+            <div className="body-container">
+                    <p className="body">{this.props.body}</p>
+            </div>
         </div>
-        <div>
-          <h5>{this.props.date}</h5>
-          <div>
-            <p>{this.props.body}</p>
-          </div>
-          <span>{this.props.author}</span>
-        </div>
-      </div>
     );
   }
 }

@@ -1,5 +1,44 @@
+.articles-list .article-container {
+  background-color: #fafafa;
+  padding: 20px 10px;
+  margin-bottom: 30px;
+  box-shadow: 2px 1px 2px #888;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto; }
+  .articles-list .article-container .article .body-container {
+    display: none; }
+
+.articles-list .more-link {
+  float: right;
+  font-size: 12px;
+  color: #0288D1;
+  text-decoration: none; }
+
+.article .title {
+  font-family: sans-serif;
+  font-style: italic;
+  font-size: 24px;
+  padding: 5px; }
+
+.article .badges-list-container {
+  text-align: left; }
+
+.badges-list .badge {
+  background-color: #F8BBD0;
+  display: inline-block;
+  font-family: sans-serif;
+  font-size: 11px;
+  border-radius: 7px;
+  padding: 2px 5px;
+  margin-right: 5px; }
+
+html, body, #root, .App {
+  height: 100%; }
+
 .App {
-  text-align: center; }
+  text-align: center;
+  background-color: #EEEEEE; }
 
 .App-header {
   background-color: #222;
