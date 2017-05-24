@@ -5,7 +5,8 @@
   padding: 5px; }
 
 .article .body {
-  text-align: left; }
+  text-align: left;
+  white-space: pre-wrap; }
 
 .article .badges-list-container {
   text-align: left; }

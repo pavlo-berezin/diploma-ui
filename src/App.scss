@@ -1,6 +1,7 @@
 @import "styles/articles-list.scss";
 @import "styles/article.scss";
 @import "styles/badges-list.scss";
+@import "styles/article-form.scss";
 
 html, body, #root {
     height: 100%;
@@ -35,6 +36,13 @@ html, body, #root {
         li a {
             color: white
         }
+    }
+
+    .username {
+        float: right;
+        text-decoration: underline;
+        font-size: 16px;
+        cursor: pointer;
     }
 }
 

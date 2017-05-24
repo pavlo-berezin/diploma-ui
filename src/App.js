@@ -20,6 +20,9 @@ class App extends Component {
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/create">Create</Link></li>
                 </ul>
+                <div className="username">
+                    Pavlo Berezin
+                </div>
             </div>
            <div className="App-body">
                 <Route exact path="/" component={ArticlesList}/>

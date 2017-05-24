@@ -22,7 +22,8 @@
   padding: 5px; }
 
 .article .body {
-  text-align: left; }
+  text-align: left;
+  white-space: pre-wrap; }
 
 .article .badges-list-container {
   text-align: left; }
@@ -49,6 +50,51 @@
   padding: 2px 5px;
   margin-right: 5px; }
 
+.article-form {
+  height: calc(100vh - 120px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding-bottom: 20px; }
+  .article-form div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 10px; }
+  .article-form input, .article-form textarea {
+    box-sizing: border-box; }
+  .article-form .body-container {
+    flex-grow: 2;
+    width: 80%; }
+    .article-form .body-container textarea {
+      resize: none;
+      flex: 1 1 auto;
+      width: 100%;
+      font-size: 14px; }
+  .article-form .title-container {
+    width: 80%; }
+    .article-form .title-container input {
+      font-size: 16px;
+      font-style: italic;
+      padding: 10px;
+      width: 100%; }
+  .article-form .submit-container input {
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    padding: 0 6px 0 6px;
+    margin: 6px 8px 6px 8px;
+    min-width: 88px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    border: none;
+    outline: none; }
+    .article-form .submit-container input:hover {
+      background-color: rgba(158, 158, 158, 0.2); }
+
 html, body, #root {
   height: 100%; }
 
@@ -73,6 +119,11 @@ html, body, #root {
       padding-right: 10px; }
     .App-header ul.menu li a {
       color: white; }
+  .App-header .username {
+    float: right;
+    text-decoration: underline;
+    font-size: 16px;
+    cursor: pointer; }
 
 .App-body {
   padding: 20px; }

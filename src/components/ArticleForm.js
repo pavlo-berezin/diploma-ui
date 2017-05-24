@@ -10,8 +10,10 @@ export default class Article extends Component {
         this.state = {
             title: '',
             body: '',
-            author: ''
+            author: 'Pavlo Berezin'
         };
+
+        this.minRows = 40;
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,25 +31,25 @@ export default class Article extends Component {
         this.props.onSubmit(this.state);
     }
 
-  render() {
-    return (
-        <form onSubmit={this.handleSubmit}>
-            <label>
-                Title:
-                <input name="title" value={this.state.title} onChange={this.handleChange} />
-            </label>
-            <br />
-            <label>
-                Body:
-                <textarea name="body" value={this.state.body} onChange={this.handleChange}></textarea>
-            </label>
-            <br/>
-            <label>
-                Author:
-                <input name="author" value={this.state.author} onChange={this.handleChange}/>
-            </label>
-            <input type="submit" value="Submit" />
-        </form>
-    );
-  }
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit} className="article-form">
+                <div className="title-container">
+                    <label htmlFor="title">Title:</label>
+                    <input name="title" value={this.state.title} onChange={this.handleChange} required/>
+                </div>
+                <div className="body-container">
+                    <label htmlFor="body">Body:</label>
+                    <textarea name="body" value={this.state.body} onChange={this.handleChange} required></textarea>
+                </div>
+                {/* <div className="author-container">
+                    <label htmlFor="author">Author:</label>
+                    <input name="author" value={this.state.author} onChange={this.handleChange} required/>
+                </div> */}
+                <div className="submit-container">
+                    <input type="submit" value="Submit" />
+                </div>
+            </form>
+        );
+    }
 }
