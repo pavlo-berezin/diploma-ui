@@ -6,7 +6,8 @@ export default class ArticlesList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            articles: []
+            articles: [],
+            categories: []
         };
     }
 
@@ -27,7 +28,6 @@ export default class ArticlesList extends Component {
 
     onSearchCallback(categories) {
         let categoriesQuery = categories.join();
-        console.log(categoriesQuery);
         this.loadData({
             categories: categoriesQuery
         })
@@ -37,21 +37,36 @@ export default class ArticlesList extends Component {
         this.loadData();
     }
 
-  render() {
-      return (
+    onBadgeClick(badge) {
+        let categories = []
+        Array.prototype.push.apply(categories, this.state.categories);
+        categories.push(badge);
+        this.onListChange(categories);
+    }
+
+    onListChange(newList) {
+        this.setState({
+            ...this.state,
+            categories: newList
+        });
+        this.onSearchCallback(newList);
+    }
+
+    render() {
+        return (
             <div className="articles-list-container">
                 <div className="search-list-container">
-                    <SearchList searchCallback={(params) => this.onSearchCallback(params)}/>
+                    <SearchList categories={this.state.categories} onListChange={(newList) => this.onListChange(newList)}/>
                 </div>
                 <div className="articles-list">
                     {this.state.articles.map((article, index) =>
                         <div key={article._id} className="article-container">
-                            <Article {...article} id={article._id}/>
+                            <Article {...article} id={article._id} onBadgeClick={(badge) => this.onBadgeClick(badge)}/>
                             <Link to={'/article/' + article._id} key={index} className="more-link">Go to article</Link>
                         </div>
                     )}
                 </div>
             </div>
-        )
+        );
     }
 }

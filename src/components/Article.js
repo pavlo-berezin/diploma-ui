@@ -20,7 +20,7 @@ export default class Article extends Component {
                 <span className="date">{new Date(this.props.date).toLocaleDateString()}</span>
             </div>
             <div className="badges-list-container">
-                <BadgesList categories={this.props.categories}></BadgesList>
+                <BadgesList onBadgeClick={(badge) => this.props.onBadgeClick(badge)} categories={this.props.categories}></BadgesList>
             </div>
             <div className="body-container">
                     <p className="body">{this.props.body}</p>

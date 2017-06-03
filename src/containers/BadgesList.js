@@ -9,7 +9,7 @@ export default class BadgesList extends Component {
       return (
         <div className="badges-list">
             {this.props.categories.map((category, index) =>
-                <Badge name={category} key={index} ></Badge>
+                <Badge name={category} key={index} onClick={() => this.props.onBadgeClick(category)}></Badge>
             )}
         </div>
       )

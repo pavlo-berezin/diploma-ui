@@ -3,21 +3,28 @@ import Badge from '../components/Badge'
 export default class SearchList extends Component {
     constructor(props) {
         super(props);
+        let categories = this.props.categories || [];
         this.state = {
             newBadge: '',
-            categories: []
+            categories: categories
         };
         this.handleChange = this.handleChange.bind(this);
     }
 
-    addNewBadge() {
-        let categories = this.state.categories;
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.categories) {
+            this.setState({
+                ...this.state,
+                categories: nextProps.categories
+            });
+        }
+    }
+
+     addNewBadge() {
+        let categories = [];
+        Array.prototype.push.apply(categories, this.state.categories);
         categories.push(this.state.newBadge);
-        this.setState({
-            categories: categories,
-            newBadge: ''
-        });
-        this.props.searchCallback(this.state.categories);
+        this.props.onListChange(categories);
     }
 
     handleChange(event) {
@@ -25,6 +32,16 @@ export default class SearchList extends Component {
         let target = event.target;
         obj[target.name] = target.value;
         this.setState(Object.assign({}, this.state, obj));
+    }
+
+    onBadgeClick(category) {
+        let categories = [];
+        Array.prototype.push.apply(categories, this.state.categories);
+        let itemIndex = categories.indexOf(category);
+        if (~itemIndex) {
+            categories.splice(itemIndex, 1);
+            this.props.onListChange(categories);
+        }
     }
 
     render() {
@@ -35,7 +52,7 @@ export default class SearchList extends Component {
                 </div>
                 <div className="badges-list">
                     {this.state.categories.map((category, index) =>
-                        <Badge name={category} key={index} ></Badge>
+                        <Badge name={category} key={index} onClick={() => this.onBadgeClick(category)}></Badge>
                     )}
                 </div>
                 <div className="add-new">
