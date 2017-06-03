@@ -4,11 +4,10 @@ export default class SearchList extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            categories: [],
-            newBadge: ''
+            newBadge: '',
+            categories: []
         };
         this.handleChange = this.handleChange.bind(this);
-
     }
 
     addNewBadge() {
@@ -18,6 +17,7 @@ export default class SearchList extends Component {
             categories: categories,
             newBadge: ''
         });
+        this.props.searchCallback(this.state.categories);
     }
 
     handleChange(event) {

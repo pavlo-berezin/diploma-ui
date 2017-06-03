@@ -15,7 +15,7 @@ class App extends Component {
         <Router>
             <div className="App">
             <div className="App-header">
-                <div className="title">Analyzer 3000</div>
+                <div className="title">Text Categorizer</div>
                 <ul className="menu">
                     <li><Link to="/">Home</Link></li>
                     <li><Link to="/create">Create</Link></li>

@@ -5,17 +5,32 @@ import { Link } from 'react-router-dom'
 export default class ArticlesList extends Component {
     constructor(props) {
         super(props);
-        this.state = {articles: []};
+        this.state = {
+            articles: []
+        };
     }
 
-    loadData() {
-        fetch('article')
+    loadData(filter={}) {
+        var url = 'article'
+        if (filter.categories && filter.categories.length) {
+            url += `?categories=${filter.categories}`;
+        }
+        fetch(url)
         .then(response => response.json())
         .then(response => {
             this.setState({
-                articles: response.articles
+                ...this.state,
+                articles: response.articles,
             });
         });
+    }
+
+    onSearchCallback(categories) {
+        let categoriesQuery = categories.join();
+        console.log(categoriesQuery);
+        this.loadData({
+            categories: categoriesQuery
+        })
     }
 
     componentWillMount() {
@@ -26,7 +41,7 @@ export default class ArticlesList extends Component {
       return (
             <div className="articles-list-container">
                 <div className="search-list-container">
-                    <SearchList/>
+                    <SearchList searchCallback={(params) => this.onSearchCallback(params)}/>
                 </div>
                 <div className="articles-list">
                     {this.state.articles.map((article, index) =>
