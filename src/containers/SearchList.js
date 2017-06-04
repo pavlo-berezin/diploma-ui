@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import Badge from '../components/Badge'
 export default class SearchList extends Component {
     constructor(props) {
@@ -28,7 +28,7 @@ export default class SearchList extends Component {
             this.setState({
                 ...this.state,
                 newBadge: ''
-            }, function () {
+            }, () => {
                 this.props.onListChange(categories);
             });
         }
