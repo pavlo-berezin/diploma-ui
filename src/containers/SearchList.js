@@ -22,9 +22,16 @@ export default class SearchList extends Component {
 
      addNewBadge() {
         let categories = [];
-        Array.prototype.push.apply(categories, this.state.categories);
-        categories.push(this.state.newBadge);
-        this.props.onListChange(categories);
+        if (this.state.newBadge) {
+            Array.prototype.push.apply(categories, this.state.categories);
+            categories.push(this.state.newBadge);
+            this.setState({
+                ...this.state,
+                newBadge: ''
+            }, function () {
+                this.props.onListChange(categories);
+            });
+        }
     }
 
     handleChange(event) {

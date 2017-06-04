@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Article from '../components/Article'
+import { browserHistory } from 'react-router';
 
 export default class ArticlesView extends Component {
   constructor(props) {
@@ -9,11 +10,9 @@ export default class ArticlesView extends Component {
 
   loadData() {
         let id = this.props.match.params.id;
-        console.log(id)
         fetch(`/article/${id}`)
             .then(response => response.json())
             .then(response => {
-                console.log(response.article);
                 this.setState({
                     article: response.article
                 });
@@ -38,12 +37,16 @@ export default class ArticlesView extends Component {
         })
   }
 
+  onBadgeClick(category) {
+      this.props.history.push(`/?categories=${category}`);
+  }
+
   render() {
       return (
         <div className="article-view">
             <span className="delete-btn" onClick={ () => this.onDeleteArticleClick(this.state.article)}>Delete</span>
             <Article
-                {...this.state.article} id={this.state.article._id} key={this.state.article._id}
+                {...this.state.article} id={this.state.article._id} key={this.state.article._id} onBadgeClick={(category) => this.onBadgeClick(category)}
             />
         </div>
       )

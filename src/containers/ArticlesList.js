@@ -5,9 +5,16 @@ import { Link } from 'react-router-dom'
 export default class ArticlesList extends Component {
     constructor(props) {
         super(props);
+        var pattern = /categories=([^&]*)/;
+        let search = this.props.location && this.props.location.search;
+        let categories = [];
+        if (search) {
+            let category = search.match(pattern)[1];
+            category && categories.push(category);
+        }
         this.state = {
             articles: [],
-            categories: []
+            categories: categories
         };
     }
 
@@ -34,7 +41,7 @@ export default class ArticlesList extends Component {
     }
 
     componentWillMount() {
-        this.loadData();
+        this.state.categories.length ? this.onSearchCallback(this.state.categories) : this.loadData();
     }
 
     onBadgeClick(badge) {
