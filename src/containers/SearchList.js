@@ -20,7 +20,7 @@ export default class SearchList extends Component {
         }
     }
 
-     addNewBadge() {
+    addNewBadge() {
         let categories = [];
         if (this.state.newBadge) {
             Array.prototype.push.apply(categories, this.state.categories);

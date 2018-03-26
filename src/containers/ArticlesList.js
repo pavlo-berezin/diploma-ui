@@ -16,6 +16,12 @@ export default class ArticlesList extends Component {
             articles: [],
             categories: categories
         };
+
+        let username = localStorage.getItem('username');
+
+        if(!username) {
+            this.props.history.push('/login')
+        }
     }
 
     loadData(filter={}) {

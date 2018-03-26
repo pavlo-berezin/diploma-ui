@@ -5,6 +5,11 @@
         font-size: 24px;
         padding: 5px;
     }
+    .sub-title {
+        .author {
+            margin-right: 1em;
+        }
+    }
     .body {
         text-align: left;
         white-space: pre-wrap;
@@ -22,10 +27,12 @@
     width: 95%;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
 
     .delete-btn {
         color: #D32F2F;
         cursor: pointer;
-        float: right;
+        position: absolute;
+        right: 25px;
     }
 }

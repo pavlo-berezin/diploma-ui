@@ -3,6 +3,7 @@
 @import "styles/badges-list.scss";
 @import "styles/article-form.scss";
 @import "styles/badge.scss";
+@import "styles/login-page.scss";
 
 html, body, #root {
     height: 100%;
@@ -44,6 +45,10 @@ html, body, #root {
         text-decoration: underline;
         font-size: 16px;
         cursor: pointer;
+
+        a {
+            color: white;
+        }
     }
 }
 
