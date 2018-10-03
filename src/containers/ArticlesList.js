@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
-import Article from '../components/Article'
-import SearchList from '../containers/SearchList'
-import { Link } from 'react-router-dom'
-import '../styles/articles-list.scss'
-import { getAllMovies, getCategories } from '../reducers';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchArticles } from '../actions/articles';
-import connect from 'react-redux/lib/connect/connect';
 import { addCategory } from '../actions/categories';
+import Article from '../components/Article';
+import SearchList from '../containers/SearchList';
+import { getAllMovies } from '../reducers';
+import '../styles/articles-list.scss';
 
 class ArticlesList extends Component {
   constructor(props) {
@@ -27,11 +27,11 @@ class ArticlesList extends Component {
   }
 
   render() {
-    const { articles, categories } = this.props;
+    const { articles } = this.props;
     return (
       <div className="articles-list-container">
         <div className="search-list-container">
-          <SearchList categories={categories} />
+          <SearchList/>
         </div>
         <div className="articles-list">
           {articles.map((article, index) =>
@@ -48,9 +48,8 @@ class ArticlesList extends Component {
 
 const mapStateToProps = (state, props) => {
   const articles = getAllMovies(state);
-  const categories = getCategories(state);
 
-  return { articles, categories }
+  return { articles }
 }
 
 const mapDispatchToProps = (dispatch) => ({
