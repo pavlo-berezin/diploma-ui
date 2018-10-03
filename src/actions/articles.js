@@ -19,7 +19,7 @@ export const fetchArticleDetailsFail = (error) => ({ type: FETCH_ARTICLE_DETAILS
 // TODO: MOVE API CALLS SEPARATE
 export const fetchArticles = () => async dispatch => {
   dispatch(fetchArticlesStart())
-  const response = await fetch('articles').json();
+  const response = await(await fetch('article')).json();
   if (response.status === 'OK') {
     const articles = response.articles || [];
     dispatch(fetchArticlesSuccess(articles));
@@ -30,7 +30,7 @@ export const fetchArticles = () => async dispatch => {
 
 export const fetchArticleDetails = (id) => async dispatch => {
   dispatch(fetchArticleDetailsStart(id))
-  const response = await fetch(`articles/${id}`).json();
+  const response = await(await fetch(`article/${id}`)).json();
   if (response.status === 'OK') {
     const article = response.article || {};
     dispatch(fetchArticleDetailsSuccess(article));

@@ -1,6 +1,6 @@
 import { ADD_CATEGORY, REMOVE_CATEGORY, CLEAR_CATEGORIES } from "../helpers/actionTypes";
 
-export const categories = (state = [], action) => {
+const categories = (state = [], action) => {
   switch (action.type) {
     case ADD_CATEGORY:
       return [...state, action.category]
@@ -8,5 +8,12 @@ export const categories = (state = [], action) => {
       return state.filter(el => el !== action.category);
     case CLEAR_CATEGORIES:
       return [];
+    default:
+      return state; 
   }
 };
+
+export default categories;
+
+export const getCategories = state => state;
+
