@@ -1,56 +1,57 @@
-import React, { Component } from 'react'
-import Article from '../components/Article'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { deleteArticle, fetchArticleDetails } from '../actions/articles';
+import { setCategories } from '../actions/categories';
+import Article from '../components/Article';
+import { getArticle } from '../reducers';
 import '../styles/article-view.scss';
 
+class ArticleView extends Component {
 
-export default class ArticlesView extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {article: {}};
-    }
+  componentWillMount() {
+    const { fetchArticleDetails, match } = this.props;
+    fetchArticleDetails(match.params.id);
+  }
 
-    loadData() {
-        let id = this.props.match.params.id;
-        fetch(`/article/${id}`)
-            .then(response => response.json())
-            .then(response => {
-                this.setState({
-                    article: response.article
-                });
-            });
-    }
+  onDeleteArticleClick(article) {
+    this.props.deleteArticle(article._id);
+    this.goToHomePage();
+  }
 
-    componentWillMount() {
-        this.loadData();
-    }
+  goToHomePage() {
+    this.props.history.push('/');
+  }
 
-    onDeleteArticleClick(article) {
-        this.deleteData(article);
-    }
+  onBadgeClick(category) {
+    this.props.setCategories([category]);
+    this.goToHomePage();
+  }
 
-    deleteData(payload) {
-        fetch(`/article/${payload._id}`,{method: 'DELETE'})
-            .then((res) => res.json())
-            .then((data) => {
-                if(data.status === 'OK') {
-                    this.props.history.push('/')
-                }
-            });
-    }
+  render() {
+    const { article } = this.props;
 
-    onBadgeClick(category) {
-        this.props.history.push(`/?categories=${category}`);
-    }
-
-    render() {
-        return (
-            <div className="article-view">
-                <span className="delete-btn" onClick={ () => this.onDeleteArticleClick(this.state.article)}>Delete</span>
-                <Article
-                    {...this.state.article} id={this.state.article._id} key={this.state.article._id}
-                    onBadgeClick={(category) => this.onBadgeClick(category)}
-                />
-            </div>
-        );
-    }
+    if (!article) { return null; }
+    return (
+      <div className="article-view">
+        <span className="delete-btn" onClick={() => this.onDeleteArticleClick(article)}>Delete</span>
+        <Article
+          {...article} id={article._id} key={article._id}
+          onBadgeClick={(category) => this.onBadgeClick(category)}
+        />
+      </div>
+    );
+  }
 }
+
+const mapStateToProps = (state, props) => {
+  const article = getArticle(props.match.params.id, state);
+  return { article }
+}
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchArticleDetails: (id) => dispatch(fetchArticleDetails(id)),
+  deleteArticle: (article) => dispatch(deleteArticle(article)),
+  setCategories: (categories) => dispatch(setCategories(categories))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ArticleView);

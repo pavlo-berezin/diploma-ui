@@ -5,7 +5,7 @@ import { fetchArticles } from '../actions/articles';
 import { addCategory } from '../actions/categories';
 import Article from '../components/Article';
 import SearchList from '../containers/SearchList';
-import { getAllMovies } from '../reducers';
+import { getAllArticles } from '../reducers';
 import '../styles/articles-list.scss';
 
 class ArticlesList extends Component {
@@ -47,7 +47,7 @@ class ArticlesList extends Component {
 }
 
 const mapStateToProps = (state, props) => {
-  const articles = getAllMovies(state);
+  const articles = getAllArticles(state);
 
   return { articles }
 }

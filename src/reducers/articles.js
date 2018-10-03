@@ -1,5 +1,15 @@
 import { combineReducers } from 'redux'
-import { FETCH_ARTICLES_SUCCESS, FETCH_ARTICLE_DETAILS_SUCCESS, FETCH_ARTICLES, FETCH_ARTICLE_DETAILS, FETCH_ARTICLE_DETAILS_FAIL, FETCH_ARTICLES_FAIL } from '../helpers/actionTypes';
+import {
+  FETCH_ARTICLES_SUCCESS,
+  FETCH_ARTICLE_DETAILS_SUCCESS,
+  FETCH_ARTICLES,
+  FETCH_ARTICLE_DETAILS,
+  FETCH_ARTICLE_DETAILS_FAIL,
+  FETCH_ARTICLES_FAIL,
+  DELETE_ARTICLE_SUCCESS,
+  DELETE_ARTICLE,
+  DELETE_ARTICLE_FAIL
+} from '../helpers/actionTypes';
 
 export const data = (state = [], action) => {
   switch (action.type) {
@@ -7,10 +17,16 @@ export const data = (state = [], action) => {
       return action.articles;
     case FETCH_ARTICLE_DETAILS_SUCCESS:
       const { article } = action;
-      const articleIndex = state.findIndex((el) => article.id === el.id);
+      const articleIndex = state.findIndex((el) => article._id === el._id);
 
-      if (~articleIndex) { return state.map((el, i) => articleIndex === i ? article : el); }
-      else return [article, ...state];
+      if (~articleIndex) {
+        return state.map((el, i) => articleIndex === i ? article : el);
+      }
+      else {
+        return [...state, article];
+      }
+    case DELETE_ARTICLE_SUCCESS:
+      return state.filter(el => el._id !== action.id)
     default:
       return state;
   }
@@ -24,9 +40,12 @@ export const fetching = (state = {}, action) => {
     case FETCH_ARTICLES_FAIL:
       return { ...state, all: false };
     case FETCH_ARTICLE_DETAILS:
-      return { ...state, [action.id]: true };
+    case DELETE_ARTICLE:
+    return { ...state, [action.id]: true };
     case FETCH_ARTICLE_DETAILS_SUCCESS:
     case FETCH_ARTICLE_DETAILS_FAIL:
+    case DELETE_ARTICLE_SUCCESS:
+    case DELETE_ARTICLE_FAIL:
       return { ...state, [action.id]: false };
     default:
       return state;
@@ -42,7 +61,10 @@ export const error = (state = {}, action) => {
       return { ...state, all: action.error };
     case FETCH_ARTICLE_DETAILS:
     case FETCH_ARTICLE_DETAILS_SUCCESS:
-      return { ...state, [action.id]: null };
+    case DELETE_ARTICLE:
+    case DELETE_ARTICLE_SUCCESS:
+    return { ...state, [action.id]: null };
+    case DELETE_ARTICLE_FAIL:
     case FETCH_ARTICLE_DETAILS_FAIL:
       return { ...state, [action.id]: action.error };
     default:
@@ -52,12 +74,12 @@ export const error = (state = {}, action) => {
 
 export default combineReducers({ data, fetching, error });
 
-export const getAllMovies = state => state.data;
-export const getMovie = (id, state) => state.data.find(el => el.id === id);
+export const getAllArticles = state => state.data;
+export const getArticle = (id, state) => state.data.find(el => el._id === id);
 
-export const isMoviesFetching = state => state.fetching.all;
-export const isMovieFetching = (id, state) => state.fetching[id];
+export const isArticlesFetching = state => state.fetching.all;
+export const isArticleFetching = (id, state) => state.fetching[id];
 
-export const getMoviesError = state => state.error.all;
-export const getMovieError = (id, state) => state.error[id];
+export const getArticlesError = state => state.error.all;
+export const getArticleError = (id, state) => state.error[id];
 

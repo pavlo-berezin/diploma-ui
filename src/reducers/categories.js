@@ -1,7 +1,9 @@
-import { ADD_CATEGORY, REMOVE_CATEGORY, CLEAR_CATEGORIES } from "../helpers/actionTypes";
+import { ADD_CATEGORY, REMOVE_CATEGORY, CLEAR_CATEGORIES, SET_CATEGORIES } from "../helpers/actionTypes";
 
 const categories = (state = [], action) => {
   switch (action.type) {
+    case SET_CATEGORIES:
+      return action.categories;
     case ADD_CATEGORY:
       return ~state.indexOf(action.category) ? [...state] : [...state, action.category];
     case REMOVE_CATEGORY:
@@ -16,4 +18,3 @@ const categories = (state = [], action) => {
 export default categories;
 
 export const getCategories = state => state;
-
