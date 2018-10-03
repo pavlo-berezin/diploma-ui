@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import '../styles/login-page.scss';
 
 export default class LoginPage extends Component {
     constructor(props) {

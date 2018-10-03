@@ -1,5 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import Badge from '../components/Badge'
+import '../styles/badges-list.scss';
+
 export default class BadgesList extends Component {
     static propTypes = {
         categories: PropTypes.array.isRequired

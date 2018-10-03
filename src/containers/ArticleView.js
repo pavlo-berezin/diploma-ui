@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import Article from '../components/Article'
+import '../styles/article-view.scss';
+
 
 export default class ArticlesView extends Component {
     constructor(props) {

@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import Article from '../components/Article'
 import SearchList from '../containers/SearchList'
 import { Link } from 'react-router-dom'
+import '../styles/articles-list.scss'
+
 
 export default class ArticlesList extends Component {
     constructor(props) {

@@ -4,7 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import './App.css';
+import './App.scss'
 import ArticlesList from './containers/ArticlesList'
 import ArticleView from './containers/ArticleView'
 import CreateArticle from './containers/CreateArticle'

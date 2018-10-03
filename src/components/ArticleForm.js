@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import '../styles/article-form.scss';
 
 export default class Article extends Component {
     static propTypes = {

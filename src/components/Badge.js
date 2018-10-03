@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import '../styles/badge.scss';
 
 export default class Badge extends Component {
     static propTypes = {

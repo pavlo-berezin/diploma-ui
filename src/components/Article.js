@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import BadgesList from '../containers/BadgesList'
+import '../styles/article.scss';
 
 export default class Article extends Component {
     static propTypes = {

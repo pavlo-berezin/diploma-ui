@@ -5,6 +5,7 @@
   "proxy": "http://localhost:5001",
   "dependencies": {
     "fsevents": "^1.2.4",
+    "node-sass": "^4.9.3",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.7",
@@ -13,21 +14,15 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "node-sass-chokidar": "0.0.1",
-    "npm-run-all": "^4.0.2",
     "react-scripts": "2.0.3"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "yarn run build-css && node-sass-chokidar src/ -o src/ --watch",
-    "start-js": "PORT=5000 react-scripts start",
-    "build-js": "react-scripts build",
-    "start": "npm-run-all -p watch-css start-js",
-    "build": "yarn run build-css && react-scripts build",
+    "build": "react-scripts build",
+    "start": "PORT=5000 react-scripts start",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "browserslist": [
+  "browserslist":[
     ">0.2%",
     "not dead",
     "not ie <= 11",

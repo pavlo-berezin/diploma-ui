@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Badge from '../components/Badge'
+
 export default class SearchList extends Component {
     constructor(props) {
         super(props);
