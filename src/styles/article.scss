@@ -1,20 +1,20 @@
 .article {
-    .title {
-        font-family: sans-serif;
-        font-style: italic;
-        font-size: 24px;
-        padding: 5px;
+  .title {
+    font-family: sans-serif;
+    font-style: italic;
+    font-size: 24px;
+    padding: 5px;
+  }
+  .sub-title {
+    .author {
+      margin-right: 1em;
     }
-    .sub-title {
-        .author {
-            margin-right: 1em;
-        }
-    }
-    .body {
-        text-align: left;
-        white-space: pre-wrap;
-    }
-    .badges-list-container {
-        text-align: left;
-    }
+  }
+  .body {
+    text-align: left;
+    white-space: pre-wrap;
+  }
+  .badges-list-container {
+    text-align: left;
+  }
 }
