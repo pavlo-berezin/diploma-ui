@@ -7,7 +7,10 @@ import {
   FETCH_ARTICLE_DETAILS_FAIL,
   DELETE_ARTICLE,
   DELETE_ARTICLE_SUCCESS,
-  DELETE_ARTICLE_FAIL
+  DELETE_ARTICLE_FAIL,
+  SAVE_ARTICLE,
+  SAVE_ARTICLE_SUCCESS,
+  SAVE_ARTICLE_FAIL
 } from "../helpers/actionTypes";
 
 export const fetchArticlesStart = () => ({ type: FETCH_ARTICLES });
@@ -17,6 +20,10 @@ export const fetchArticlesFail = (error) => ({ type: FETCH_ARTICLES_FAIL, error 
 export const fetchArticleDetailsStart = (id) => ({ type: FETCH_ARTICLE_DETAILS, id });
 export const fetchArticleDetailsSuccess = (id, article) => ({ type: FETCH_ARTICLE_DETAILS_SUCCESS, id, article });
 export const fetchArticleDetailsFail = (id, error) => ({ type: FETCH_ARTICLE_DETAILS_FAIL, id, error });
+
+export const saveArticleStart = (id) => ({ type: SAVE_ARTICLE, id});
+export const saveArticleSuccess = (id, article) => ({ type: SAVE_ARTICLE_SUCCESS, id, article});
+export const saveArticleFail = (id, error) => ({ type: SAVE_ARTICLE_FAIL, id, error});
 
 export const deleteArticleStart = (id) => ({ type: DELETE_ARTICLE, id });
 export const deleteArticleSuccess = (id) => ({ type: DELETE_ARTICLE_SUCCESS, id });
@@ -43,6 +50,28 @@ export const fetchArticleDetails = (id) => async dispatch => {
     dispatch(fetchArticleDetailsSuccess(article._id, article));
   } else {
     dispatch(fetchArticleDetailsFail(id, response.error));
+  }
+}
+
+export const saveArticle = (article) => async dispatch => {
+  const id = article._id || new Date().getTime();
+  const options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(article)
+  };
+
+  dispatch(saveArticleStart(id));
+
+  const response = await (await fetch(`/article`, options)).json()
+
+  if (response.status === 'OK') {
+    dispatch(saveArticleSuccess(id, response.article));
+  } else {
+    dispatch(saveArticleFail(id, response.error));
   }
 }
 

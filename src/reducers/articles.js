@@ -8,7 +8,10 @@ import {
   FETCH_ARTICLES_FAIL,
   DELETE_ARTICLE_SUCCESS,
   DELETE_ARTICLE,
-  DELETE_ARTICLE_FAIL
+  DELETE_ARTICLE_FAIL,
+  SAVE_ARTICLE_SUCCESS,
+  SAVE_ARTICLE_FAIL,
+  SAVE_ARTICLE
 } from '../helpers/actionTypes';
 
 export const data = (state = [], action) => {
@@ -16,14 +19,18 @@ export const data = (state = [], action) => {
     case FETCH_ARTICLES_SUCCESS:
       return action.articles;
     case FETCH_ARTICLE_DETAILS_SUCCESS:
+    case SAVE_ARTICLE_SUCCESS:
       const { article } = action;
+      // TODO: REMOVE THIS BY FIXING SAVING API.
+      if (!article) return state;
+
       const articleIndex = state.findIndex((el) => article._id === el._id);
 
       if (~articleIndex) {
         return state.map((el, i) => articleIndex === i ? article : el);
       }
       else {
-        return [...state, article];
+        return [article, ...state];
       }
     case DELETE_ARTICLE_SUCCESS:
       return state.filter(el => el._id !== action.id)
@@ -41,9 +48,12 @@ export const fetching = (state = {}, action) => {
       return { ...state, all: false };
     case FETCH_ARTICLE_DETAILS:
     case DELETE_ARTICLE:
+    case SAVE_ARTICLE:
     return { ...state, [action.id]: true };
     case FETCH_ARTICLE_DETAILS_SUCCESS:
     case FETCH_ARTICLE_DETAILS_FAIL:
+    case SAVE_ARTICLE_SUCCESS:
+    case SAVE_ARTICLE_FAIL:
     case DELETE_ARTICLE_SUCCESS:
     case DELETE_ARTICLE_FAIL:
       return { ...state, [action.id]: false };
@@ -61,10 +71,13 @@ export const error = (state = {}, action) => {
       return { ...state, all: action.error };
     case FETCH_ARTICLE_DETAILS:
     case FETCH_ARTICLE_DETAILS_SUCCESS:
+    case SAVE_ARTICLE:
+    case SAVE_ARTICLE_SUCCESS:
     case DELETE_ARTICLE:
     case DELETE_ARTICLE_SUCCESS:
-    return { ...state, [action.id]: null };
+      return { ...state, [action.id]: null };
     case DELETE_ARTICLE_FAIL:
+    case SAVE_ARTICLE_FAIL:
     case FETCH_ARTICLE_DETAILS_FAIL:
       return { ...state, [action.id]: action.error };
     default:

@@ -1,34 +1,23 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import ArticleForm from '../components/ArticleForm'
+import { saveArticle } from '../actions/articles';
 
-export default class CreateArticle extends Component {
-    onSubmit(state) {
-        this.saveData(state);
-    }
+const CreateArticle = (props) => {
+  const handleSubmit = (article) => {
+    props.saveArticle(article);
+    props.history.push('/');
+  }
 
-    saveData(payload) {
-        let opt = {
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(payload)
-        };
-        fetch("/article", opt)
-            .then((res) => res.json())
-            .then((data) => {
-                if(data.status === 'OK') {
-                    this.props.history.push('/')
-                }
-            });
-    }
+  return (
+    <div>
+      <ArticleForm onSubmit={ (article) => handleSubmit(article)}></ArticleForm>
+    </div>
+  )
+};
 
-    render() {
-        return (
-            <div>
-                <ArticleForm onSubmit={this.onSubmit.bind(this)}></ArticleForm>
-            </div>
-        );
-    }
-}
+const mapDispatchToProps = (dispatch) => ({
+  saveArticle: (article) => dispatch(saveArticle(article))
+});
+
+export default connect(null, mapDispatchToProps)(CreateArticle);
