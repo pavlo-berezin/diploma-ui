@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react';
 import { connect } from 'react-redux';
-import ArticleForm from '../components/ArticleForm'
 import { saveArticle } from '../actions/articles';
+import ArticleForm from '../components/ArticleForm';
 
 const CreateArticle = (props) => {
   const handleSubmit = (article) => {
