@@ -36,7 +36,7 @@ class ArticlesList extends Component {
         <div className="articles-list">
           {articles.map((article, index) =>
             <div key={article._id} className="article-container">
-              <Article {...article} id={article._id} onBadgeClick={(badge) => this.onBadgeClick(badge)} />
+              <Article {...article} id={article._id} onBadgeClick={(badge) => this.onBadgeClick(badge)} hideBody={true} />
               <Link to={'/article/' + article._id} key={index} className="more-link">Go to article</Link>
             </div>
           )}

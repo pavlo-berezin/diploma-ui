@@ -1,17 +1,10 @@
-import React, { Component, PropTypes } from 'react'
+import React from 'react';
 import '../styles/badge.scss';
 
-export default class Badge extends Component {
-    static propTypes = {
-        name: PropTypes.string.isRequired,
-        onClick: PropTypes.func
-    }
+const Badge = (props) => (
+  <div className="badge" onClick={props.onClick}>
+    <span>{props.name}</span>
+  </div>
+)
 
-    render() {
-        return (
-            <div className="badge" onClick={this.props.onClick}>
-                <span>{this.props.name}</span>
-            </div>
-        );
-    }
-}
+export default Badge;
