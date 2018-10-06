@@ -12,6 +12,7 @@ import {
   SAVE_ARTICLE_SUCCESS,
   SAVE_ARTICLE_FAIL
 } from "../helpers/actionTypes";
+import { stringify } from 'query-string';
 
 export const fetchArticlesStart = () => ({ type: FETCH_ARTICLES });
 export const fetchArticlesSuccess = (articles) => ({ type: FETCH_ARTICLES_SUCCESS, articles });
@@ -30,9 +31,12 @@ export const deleteArticleSuccess = (id) => ({ type: DELETE_ARTICLE_SUCCESS, id 
 export const deleteArticleFail = (id, error) => ({ type: DELETE_ARTICLE_FAIL, id, error });
 
 // TODO: MOVE API CALLS SEPARATE
-export const fetchArticles = () => async dispatch => {
+export const fetchArticles = (categories = []) => async dispatch => {
   dispatch(fetchArticlesStart())
-  const response = await (await fetch('/article')).json();
+
+  const url = categories.length ? `/article?${stringify({ categories })}` : '/article';
+  const response = await (await fetch(url)).json();
+
   if (response.status === 'OK') {
     const articles = response.articles || [];
     dispatch(fetchArticlesSuccess(articles));

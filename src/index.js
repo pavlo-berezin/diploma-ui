@@ -4,8 +4,10 @@ import { Provider } from "react-redux";
 import App from './App';
 import './index.css';
 import { getStore } from './store';
+import { initSubscriptions } from './subscribers';
 
 const store = getStore();
+initSubscriptions(store);
 
 ReactDOM.render(
   <Provider store={store}>

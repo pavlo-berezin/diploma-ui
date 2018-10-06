@@ -6,6 +6,7 @@
   "dependencies": {
     "fsevents": "^1.2.4",
     "node-sass": "^4.9.3",
+    "query-string": "^6.2.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.7",
@@ -22,7 +23,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "browserslist":[
+  "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
