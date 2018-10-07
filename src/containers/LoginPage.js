@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import '../styles/login-page.scss';
+import { login } from '../actions/auth';
+import { connect } from 'react-redux';
 
-export default class LoginPage extends Component {
+class LoginPage extends Component {
   constructor(props) {
     super(props);
 
@@ -25,8 +27,12 @@ export default class LoginPage extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { username, password } = this.state;
     localStorage.setItem('username', this.state.username);
-    this.props.history.push('/');
+    if (username && password) {
+      this.props.login(username, password);
+    }
+    // this.props.history.push('/');
   }
 
   render() {
@@ -49,3 +55,11 @@ export default class LoginPage extends Component {
     );
   }
 }
+
+
+const mapDispatchToProps = (dispatch) => ({
+  login: (username, password) => dispatch(login(username, password)),
+})
+
+export default connect(null, mapDispatchToProps)(LoginPage);
+
