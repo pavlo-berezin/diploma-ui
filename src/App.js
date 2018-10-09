@@ -5,6 +5,7 @@ import ArticlesList from './containers/ArticlesList';
 import ArticleView from './containers/ArticleView';
 import CreateArticle from './containers/CreateArticle';
 import LoginPage from './containers/LoginPage';
+import UserSignup from './containers/UserSignup';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,12 @@ class App extends Component {
     }
   }
   render() {
+    const usernameContent = this.state.username ? <span>{this.state.username}</span> : (
+      <div>
+        <Link to="/login">Login</Link>
+        <Link to="/signup">Signup</Link>
+      </div>
+    )
     return (
       <Router>
         <div className="App">
@@ -32,13 +39,13 @@ class App extends Component {
               <li><Link to="/create">Create</Link></li>
             </ul>
             <div className="username">
-              {!this.state.username && <Link to="/login">Login</Link>}
-              {this.state.username && <span>{this.state.username}</span>}
+              { usernameContent }
             </div>
           </div>
           <div className="App-body">
             <Route exact path="/" component={ArticlesList} />
             <Route path="/login" component={LoginPage} />
+            <Route path="/signup" component={UserSignup} />
             <Route path="/create" component={CreateArticle} />
             <Route path="/article/:id" component={ArticleView} />
           </div>

@@ -42,3 +42,28 @@ export const login = (username, password) => async dispatch => {
     dispatch(loginFail(error))
   }
 }
+
+export const signup = (userData) => async dispatch => {
+  dispatch(signupStart());
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(userData)
+  };
+
+  try {
+    const response = await (await fetch(`/auth/signup`, options)).json();
+  
+    if (response.status === 'OK') {
+      dispatch(signupSuccess(response.user));
+    } else {
+      dispatch(signupFail(response.error));
+    }
+  } catch (error) {
+    dispatch(signupFail(error))
+  }
+}
