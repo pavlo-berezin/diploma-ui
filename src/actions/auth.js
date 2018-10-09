@@ -67,3 +67,19 @@ export const signup = (userData) => async dispatch => {
     dispatch(signupFail(error))
   }
 }
+
+export const fetchCurrentUser = () => async dispatch => {
+  dispatch(fetchCurrentUserStart());
+
+  try {
+    const response = await (await fetch(`/auth/getCurrentUser`)).json();
+  
+    if (response.status === 'OK') {
+      dispatch(fetchCurrentUserSuccess(response.user));
+    } else {
+      dispatch(fetchCurrentUserFail(response.error));
+    }
+  } catch (error) {
+    dispatch(fetchCurrentUserFail(error))
+  }
+}

@@ -1,65 +1,50 @@
 import React, { Component } from 'react';
-import '../styles/login-page.scss';
-import { login } from '../actions/auth';
 import { connect } from 'react-redux';
+import { login } from '../actions/auth';
+import LoginForm from '../components/LoginForm';
+import { getAuthedUser, getAuthError, isAuthFetching } from '../reducers';
+import '../styles/login-page.scss';
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      username: '',
-      password: ''
-    };
-
-    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    const { name, value } = event.target;
-
-    this.setState({
-      ...this.state,
-      [name]: value
-    });
+  componentDidUpdate(prevProps, prevState) {
+    if (prevProps.isAuthFetching && !this.props.isAuthFetching) {
+      if (this.props.error) {
+        console.log(this.props.error);
+      } else if (this.props.user) {
+        this.props.history.push('/');
+      }
+    }
   }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    const { username, password } = this.state;
-    localStorage.setItem('username', this.state.username);
-    if (username && password) {
-      this.props.login(username, password);
-    }
-    // this.props.history.push('/');
+  handleSubmit({ username, password }) {
+    this.props.login(username, password);
   }
 
   render() {
     return (
       <div className="login-form-container">
-        <form onSubmit={this.handleSubmit} className="login-form">
-          <div className="username-container">
-            <label htmlFor="username">Username:</label>
-            <input name="username" value={this.state.username} onChange={this.handleChange} required />
-          </div>
-          <div className="password-container">
-            <label htmlFor="password">Password:</label>
-            <input name="password" type="password" value={this.state.password} onChange={this.handleChange} required />
-          </div>
-          <div className="submit-container">
-            <input type="submit" value="Login" />
-          </div>
-        </form>
+        <LoginForm onSubmit={this.handleSubmit}></LoginForm>
       </div>
     );
   }
 }
+
+const mapStateToProps = (state, props) => ({
+  isAuthFetching: isAuthFetching(state),
+  user: getAuthedUser(state),
+  error: getAuthError(state)
+})
 
 
 const mapDispatchToProps = (dispatch) => ({
   login: (username, password) => dispatch(login(username, password)),
 })
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
 

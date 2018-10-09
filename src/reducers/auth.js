@@ -1,4 +1,4 @@
-import { LOGIN, SIGNUP, FETCH_CURRENT_USER, LOGIN_SUCCESS, SIGNUP_SUCCESS, FETCH_CURRENT_USER_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, SIGNUP_FAIL, FETCH_CURRENT_USER_FAIL, LOGOUT_FAIL } from "../helpers/actionTypes";
+import { LOGIN, SIGNUP, FETCH_CURRENT_USER, LOGIN_SUCCESS, SIGNUP_SUCCESS, FETCH_CURRENT_USER_SUCCESS, LOGIN_FAIL, LOGOUT_SUCCESS, SIGNUP_FAIL, FETCH_CURRENT_USER_FAIL, LOGOUT_FAIL, LOGOUT } from "../helpers/actionTypes";
 
 
 const defaultState = {
@@ -18,7 +18,7 @@ export default (state = defaultState, action) => {
     case LOGIN_SUCCESS:
     case SIGNUP_SUCCESS:
     case FETCH_CURRENT_USER_SUCCESS:
-      return { ...state, fetching: false, data: action.user };
+      return { ...state, error: null, fetching: false, data: action.user };
     case LOGOUT_SUCCESS:
       return { ...state, error: null, data: null, fetching: false };
     case LOGIN_FAIL:
@@ -30,3 +30,7 @@ export default (state = defaultState, action) => {
       return state;
   }
 }
+
+export const isAuthFetching = (state) => state.fetching; 
+export const getAuthedUser = (state) => state.data;
+export const getAuthError = (state) => state.error;

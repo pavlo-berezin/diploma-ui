@@ -2,24 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { fetchArticles } from '../actions/articles';
+import { fetchCurrentUser } from '../actions/auth';
 import { addCategory } from '../actions/categories';
 import Article from '../components/Article';
 import SearchList from '../containers/SearchList';
-import { getAllArticles } from '../reducers';
+import { getAllArticles, getAuthedUser, isAuthFetching } from '../reducers';
 import '../styles/articles-list.scss';
 
 class ArticlesList extends Component {
-  constructor(props) {
-    super(props);
+  componentWillMount() {
+    this.props.fetchArticles();
 
-    let username = localStorage.getItem('username');
-    if (!username) {
-      this.props.history.push('/login')
+    if (!this.props.user) {
+      this.props.fetchCurrentUser();
     }
   }
 
-  componentWillMount() {
-    this.props.fetchArticles();
+  componentDidUpdate(prevProps) {
+    if (!this.props.isAuthFetching && !this.props.user) {
+      this.props.history.push('/login');
+    }
   }
 
   onBadgeClick(category) {
@@ -46,15 +48,16 @@ class ArticlesList extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const articles = getAllArticles(state);
-
-  return { articles }
-}
+const mapStateToProps = (state, props) => ({
+  articles: getAllArticles(state),
+  isAuthFetching: isAuthFetching(state),
+  user: getAuthedUser(state)
+})
 
 const mapDispatchToProps = (dispatch) => ({
   fetchArticles: () => dispatch(fetchArticles()),
-  addCategory: (category) => dispatch(addCategory(category))
+  addCategory: (category) => dispatch(addCategory(category)),
+  fetchCurrentUser: () => dispatch(fetchCurrentUser())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArticlesList);
