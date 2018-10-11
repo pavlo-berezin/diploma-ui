@@ -7,8 +7,7 @@ export default class ArticleForm extends Component {
 
     this.state = {
       title: '',
-      body: '',
-      author: 'Pavlo Berezin'
+      body: ''
     };
 
     this.handleChange = this.handleChange.bind(this);

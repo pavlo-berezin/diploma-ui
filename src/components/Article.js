@@ -10,7 +10,7 @@ const Article = (props) => (
       <span className="date">{props.date && new Date(props.date).toLocaleDateString()}</span>
     </div>
     <div className="badges-list-container">
-      <BadgesList onBadgeClick={(badge) => props.onBadgeClick(badge)} categories={props.categories}></BadgesList>
+      <BadgesList onBadgeClick={(badge) => props.onBadgeClick(badge)} categories={props.categories.map(({name}) => name)}></BadgesList>
     </div>
     { !props.hideBody &&
       <div className="body-container">
