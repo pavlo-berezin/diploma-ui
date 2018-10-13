@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
 import './App.scss';
 import ArticlesList from './containers/ArticlesList';
 import ArticleView from './containers/ArticleView';
 import CreateArticle from './containers/CreateArticle';
 import LoginPage from './containers/LoginPage';
 import UserSignup from './containers/UserSignup';
+import AppHeader from './components/AppHeader';
+import { getAuthedUser, isAuthFetching, getAuthError } from './reducers';
+import { fetchCurrentUser, logout } from './actions/auth';
+import { connect } from 'react-redux';
 
 class App extends Component {
   constructor(props) {
@@ -16,38 +20,51 @@ class App extends Component {
     }
   }
 
-  requireAuth() {
-    if (!this.state.username) {
-      console.log('inside if');
-      console.log(this.props);
+  componentWillMount() {
+    if (!this.props.user) {
+      this.props.fetchCurrentUser();
     }
   }
+
+  logout() {
+    console.log('logout');
+    this.props.logout();
+  }
+  
   render() {
-    const usernameContent = this.state.username ? <span>{this.state.username}</span> : (
-      <div>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Signup</Link>
-      </div>
-    )
+    const { user, isAuthFetching } = this.props;
+    const isAuthenticated = !isAuthFetching && user;
+
+    const PrivateRoute = ({ component: Component, ...rest }) => (
+      <Route
+        {...rest}
+        render={props =>
+          isAuthenticated ? (
+            <Component {...props} />
+          ) : (
+              <Redirect
+                to={{
+                  pathname: '/login',
+                  state: { from: props.location }
+                }}
+              />
+            )
+        }
+      />
+    );
+
     return (
       <Router>
         <div className="App">
           <div className="App-header">
-            <div className="title">Text Categorizer</div>
-            <ul className="menu">
-              <li><Link to="/">Home</Link></li>
-              <li><Link to="/create">Create</Link></li>
-            </ul>
-            <div className="username">
-              { usernameContent }
-            </div>
+            <AppHeader isAuthenticated={isAuthenticated} user={user} onLogout={() => this.logout()}></AppHeader>
           </div>
           <div className="App-body">
-            <Route exact path="/" component={ArticlesList} />
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={UserSignup} />
-            <Route path="/create" component={CreateArticle} />
-            <Route path="/article/:id" component={ArticleView} />
+            <PrivateRoute exact path="/" component={ArticlesList} />
+            <PrivateRoute path="/create" component={CreateArticle} />
+            <PrivateRoute path="/article/:id" component={ArticleView} />
           </div>
         </div>
       </Router>
@@ -55,4 +72,15 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = (state, props) => ({
+  authError: getAuthError(state),
+  isAuthFetching: isAuthFetching(state),
+  user: getAuthedUser(state)
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchCurrentUser: () => dispatch(fetchCurrentUser()),
+  logout: () => dispatch(logout())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

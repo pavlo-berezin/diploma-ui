@@ -43,6 +43,30 @@ export const login = (username, password) => async dispatch => {
   }
 }
 
+export const logout = () => async dispatch => {
+  dispatch(logoutStart());
+
+  const options = {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    }
+  };
+
+  try {
+    const response = await (await fetch(`/auth/logout`, options)).json();
+  
+    if (response.status === 'OK') {
+      dispatch(logoutSuccess());
+    } else {
+      dispatch(logoutFail(response.error));
+    }
+  } catch (error) {
+    dispatch(logoutFail(error))
+  }
+}
+
 export const signup = (userData) => async dispatch => {
   dispatch(signupStart());
 
