@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:5001",
   "dependencies": {
+    "debounce": "^1.2.0",
     "fsevents": "^1.2.4",
     "node-sass": "^4.9.3",
     "query-string": "^6.2.0",
@@ -11,6 +12,7 @@
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.1.1",
+    "react-select": "^2.1.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.3.0"
   },

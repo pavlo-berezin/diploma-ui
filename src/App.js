@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import './App.scss';
-import ArticlesList from './containers/ArticlesList';
+import HomePage from './containers/HomePage';
 import ArticleView from './containers/ArticleView';
 import CreateArticle from './containers/CreateArticle';
 import LoginPage from './containers/LoginPage';
@@ -62,7 +62,7 @@ class App extends Component {
           <div className="App-body">
             <Route path="/login" component={LoginPage} />
             <Route path="/signup" component={UserSignup} />
-            <PrivateRoute exact path="/" component={ArticlesList} />
+            <PrivateRoute exact path="/" component={HomePage} />
             <PrivateRoute path="/create" component={CreateArticle} />
             <PrivateRoute path="/article/:id" component={ArticleView} />
           </div>

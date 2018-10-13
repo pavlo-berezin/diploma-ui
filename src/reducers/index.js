@@ -15,6 +15,9 @@ export const getArticlesError = state => fromArticles.getArticlesError(state.art
 export const getArticleError = (id, state) => fromArticles.getArticleError(id, state.articles);
 
 export const getCategories = state => fromCategories.getCategories(state.categories);
+export const getAsyncCategories = state => fromCategories.getAsyncCategories(state.categories);
+export const asyncCategoriesFetching = state => fromCategories.asyncCategoriesFetching(state.categories);
+export const asyncCategoriesError = state => fromCategories.asyncCategoriesError(state.categories);
 
 export const isAuthFetching = (state) => fromAuth.isAuthFetching(state.auth);
 export const getAuthedUser = (state) => fromAuth.getAuthedUser(state.auth);
