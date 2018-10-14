@@ -22,6 +22,10 @@ export default class ArticlesSearch extends Component {
         backgroundColor: '#F8BBD0',
         borderRadius: '7px'
       }),
+      multiValueLabel: (styles, { data }) => ({
+        ...styles,
+        fontSize: '14px',
+      }),
       multiValueRemove: (styles, { data }) => ({
         ...styles,
         color: 'rgba(0, 0, 0, 0.5)',
