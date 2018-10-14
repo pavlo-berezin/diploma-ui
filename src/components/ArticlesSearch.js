@@ -16,6 +16,25 @@ export default class ArticlesSearch extends Component {
   }
 
   render() {
+    const styles = {
+      multiValue: (styles, { data }) => ({
+        ...styles,
+        backgroundColor: '#F8BBD0',
+        borderRadius: '7px'
+      }),
+      multiValueRemove: (styles, { data }) => ({
+        ...styles,
+        color: 'rgba(0, 0, 0, 0.5)',
+        ':hover': {
+          color: 'rgba(0, 0, 0, 0.8)',
+          backgroundColor: '#F8BBD0',
+          borderRadius: '7px',
+          cursor: 'pointer'
+        },
+      }),
+    }
+
+
     const { categories, asyncCategories, asyncCategoriesFetching } = this.props;
     const handleInputChange = debounce(this.handleInputChange.bind(this), 375)
 
@@ -28,6 +47,7 @@ export default class ArticlesSearch extends Component {
         isMulti
         value={value}
         options={options}
+        styles={styles}
         isLoading={asyncCategoriesFetching}
         onChange={(newValue) => this.handleChange(newValue)}
         onInputChange={handleInputChange}

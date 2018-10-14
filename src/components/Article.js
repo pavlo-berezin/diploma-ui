@@ -6,7 +6,7 @@ const Article = (props) => (
   <div className="article">
     <span className="title">{props.title}</span>
     <div className="sub-title">
-      <span className="author">{props.author.firstName} {props.author.lastName}</span> 
+      <span className="author">{props.author && `${props.author.firstName} ${props.author.lastName}`}</span>
       <span className="date">{props.date && new Date(props.date).toLocaleDateString()}</span>
     </div>
     <div className="badges-list-container">

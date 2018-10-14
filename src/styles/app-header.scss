@@ -1,32 +1,62 @@
 .main-header {
-  align-items: center;
   background-color: teal;
   color: white;
   display: flex;
+  align-items: baseline;
   height: 100%;
-  padding: 0 20px;
+  padding: 15px 20px;
   width: 100%;
 
   .title {
     font-size: 26px;
   }
 
-  .menu-container .menu {
-    display: flex;
-    list-style: none;
-
-    li {
-      margin-right: 5px;
-    }
-
-    a {
+  .links-container {
+    .link {
       color: white;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+
+      &:not(:last-of-type) {
+        margin-right: 10px;
+      }
+
     }
+  }
+
+  .menu-container {
+    margin-left: 20px;
   }
 
   .right-section {
     display: flex;
     flex: 1;
     justify-content: flex-end;
+  }
+
+  .authed-section {
+    display: flex;
+    align-items: center;
+
+    .username {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+
+    .icon-button {
+      background-color: transparent;
+      border: none;
+      height: 18px;
+      width: 18px;
+      padding: 0;
+
+      svg {
+        height: 100%;
+        width: 100%;
+      }
+    }
   }
 }
