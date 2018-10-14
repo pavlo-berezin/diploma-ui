@@ -29,7 +29,7 @@ class ArticleView extends Component {
 
   render() {
     const { article } = this.props;
-
+    console.log('render', article)
     if (!article) { return null; }
     return (
       <div className="article-view">

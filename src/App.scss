@@ -20,11 +20,13 @@ html, body, #root {
   left: 0;
   right: 0;
   height: $header-height;
+  z-index: 100;
 }
 
 .App-body {
   background-color: #EEEEEE;
   min-height: 100%;
+  display: flex;
   padding: 20px;
   padding-top: 78px;
 }

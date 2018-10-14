@@ -1,0 +1,52 @@
+.article-card {
+  background-color: #fafafa;
+  padding: 25px 15px;
+  box-shadow: 2px 1px 2px #888;
+  text-align: left;
+  position: relative;
+
+  .title {
+    display: inline-block;
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .date {
+    font-size: 12px;
+    color: dimgrey;
+    position: absolute;
+    top: 10px;
+    right: 12px;
+  }
+
+  .badges-list-container {
+    margin-bottom: 15px;
+
+    .badges-list {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 0 5px;
+    }
+
+    .badge {
+      font-size: 14px;
+      margin-bottom: 4px;
+      margin-bottom: 5px;
+      flex: 1 1 auto;
+      text-align: center;
+    }
+  }
+
+  .author {
+    font-size: 15px;
+  }
+
+  .more-link {
+    font-size: 12px;
+    color: dodgerblue;
+    text-decoration: none;
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+  }
+}

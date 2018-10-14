@@ -1,0 +1,10 @@
+.articles-grid {
+  column-count: 3;
+  column-gap: 20px;
+  padding: 20px;
+
+  .article-container {
+    padding-bottom: 20px;
+    break-inside: avoid;
+  }
+}

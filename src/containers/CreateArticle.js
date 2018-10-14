@@ -22,9 +22,7 @@ class CreateArticle extends Component {
 
   render() {
     return (
-      <div>
-        <ArticleForm onSubmit={this.handleSubmit}></ArticleForm>
-      </div>
+      <ArticleForm onSubmit={this.handleSubmit}></ArticleForm>
     )
   }
 }
