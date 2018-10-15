@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveArticle } from '../actions/articles';
+import { saveArticle, saveArticleFile } from '../actions/articles';
 import ArticleForm from '../components/ArticleForm';
 import { getAuthedUser } from '../reducers';
 
@@ -11,11 +11,16 @@ class CreateArticle extends Component {
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
+
   handleSubmit(article) {
-    this.props.saveArticle({
+    const articleRequest = {
       ...article,
       author: this.props.user && this.props.user._id
-    });
+    };
+
+    const method = articleRequest.article ? this.props.saveArticleFile : this.props.saveArticle;
+
+    method(articleRequest);
 
     // this.props.history.push('/');
   }
@@ -33,6 +38,7 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveArticle: (article) => dispatch(saveArticle(article)),
+  saveArticleFile: (article) => dispatch(saveArticleFile(article))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import CreatableSelect from 'react-select/lib/Creatable';
+import { components } from 'react-select';
 import { debounce } from 'debounce';
+import { ReactComponent as Search } from '../icons/search.svg';
 import '../styles/articles-search.scss';
 
 export default class ArticlesSearch extends Component {
@@ -36,7 +38,23 @@ export default class ArticlesSearch extends Component {
           cursor: 'pointer'
         },
       }),
-    }
+      dropdownIndicator: (styles, { data }) => ({
+        ...styles,
+        'svg': {
+          height: '20px',
+          width: '20px',
+          fill: '#cccccc'
+        }
+      })
+    };
+
+    const DropdownIndicator = (props) => {
+      return components.DropdownIndicator && (
+        <components.DropdownIndicator {...props}>
+         <Search />
+        </components.DropdownIndicator>
+      );
+    };
 
 
     const { categories, asyncCategories, asyncCategoriesFetching } = this.props;
@@ -52,6 +70,7 @@ export default class ArticlesSearch extends Component {
         value={value}
         options={options}
         styles={styles}
+        components={{ DropdownIndicator }}
         isLoading={asyncCategoriesFetching}
         onChange={(newValue) => this.handleChange(newValue)}
         onInputChange={handleInputChange}

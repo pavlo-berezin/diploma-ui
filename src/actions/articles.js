@@ -79,6 +79,31 @@ export const saveArticle = (article) => async dispatch => {
   }
 }
 
+export const saveArticleFile = (body) => async dispatch => {
+  const id = body._id || new Date().getTime();
+  console.log(body);
+
+  const formData = new FormData();
+
+  Object.entries(body).forEach(([key, value]) => formData.append(key, value));
+  console.log(formData);
+  const options = {
+    method: 'POST',
+    body: formData
+  };
+
+
+  dispatch(saveArticleStart(id));
+
+  const response = await (await fetch(`/article/withFile`, options)).json()
+
+  if (response.status === 'OK') {
+    dispatch(saveArticleSuccess(id, response.article));
+  } else {
+    dispatch(saveArticleFail(id, response.error));
+  }
+}
+
 export const deleteArticle = (id) => async dispatch => {
   dispatch(deleteArticleStart(id))
 
