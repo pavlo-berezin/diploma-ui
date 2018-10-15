@@ -2,12 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { login } from '../actions/auth';
 import LoginForm from '../components/LoginForm';
+import { Redirect } from 'react-router-dom';
 import { getAuthedUser, getAuthError, isAuthFetching } from '../reducers';
 import '../styles/login-page.scss';
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { redirectToReferrer: false }
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -17,7 +20,7 @@ class LoginPage extends Component {
       if (this.props.error) {
         console.log(this.props.error);
       } else if (this.props.user) {
-        this.props.history.push('/');
+        this.setState({ ...this.state, redirectToReferrer: true })
       }
     }
   }
@@ -27,6 +30,13 @@ class LoginPage extends Component {
   }
 
   render() {
+    const { from } = this.props.location.state || { from: { pathname: "/" } };
+    const { redirectToReferrer } = this.state;
+
+    if (redirectToReferrer) {
+      return <Redirect to={from} />;
+    }
+
     return (
       <div className="login-form-container">
         <LoginForm onSubmit={this.handleSubmit}></LoginForm>
