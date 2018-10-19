@@ -6,58 +6,134 @@
   align-items: center;
   padding-bottom: 20px;
 
-  div {
+  .form-item-container, .submit-container, .file-container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin-top: 10px;
   }
 
-  input, textarea {
-    box-sizing: border-box;
+  .file-container {
+    flex-direction: row;
+    align-items: stretch;
+    width: 80%;
+    padding: 5px 0;
+
+    .upload-file-button {
+      text-transform: none;
+    }
+
+    .file-input {
+      width: 0px;
+      overflow: hidden;
+    }
+
+    .uploaded-file-info {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      margin-left: 15px;
+
+      .remove-file-icon {
+        cursor: pointer;
+        height: 20px;
+        width: 20px;
+        margin-left: 10px;
+      }
+    }
   }
 
   .body-container {
     flex-grow: 2;
     width: 80%;
 
-    textarea {
+    .form-item-textarea {
       resize: none;
       flex: 1 1 auto;
-      width: 100%;
-      font-size: 14px;
     }
+  }
+
+  .form-item-container {
+    position: relative;
+  }
+
+  .form-item {
+    border-color: #cccccc;
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+
+    &:disabled {
+      background-color: rgba(255,255,255, 0.4);
+    }
+
+    &.form-item-textarea {
+      padding: 15px;
+    }
+
+    &:not(:disabled) {
+      &:focus, &:active, &.form-item-input:not([value=""]), &.form-item-textarea:not(:empty) {
+        outline: none;
+  
+        & + .form-item-label {
+          color: #333333;
+          top: -8px;
+          left: 8px;
+          z-index: 1;
+  
+          &::after {
+            content: "";
+            background-color: white;
+            border-top-left-radius: 2px;
+            height: 10px;
+            padding: 0 5px;
+            position: absolute;
+            top: 8px;
+            left: 0px;
+            right: 0px;
+            z-index: -1;
+          }
+        }
+      }
+    }
+  }
+
+  .form-item-label {
+    color: #808080;
+    position: absolute;
+    top: 14px;
+    left: 10px;
+    transition: 0.15s ease all;
   }
 
   .title-container {
     width: 80%;
 
-    input {
-      font-size: 16px;
+    .form-item {
+      font-size: 18px;
       font-style: italic;
-      padding: 10px;
-      width: 100%;
     }
   }
 
-  .submit-container {
-    input {
-      background-color: #fff;
-      box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
-      padding: 0 6px 0 6px;
-      margin: 6px 8px 6px 8px;
-      min-width: 88px;
-      border-radius: 3px;
-      font-size: 14px;
-      text-align: center;
-      text-transform: uppercase;
-      text-decoration:none;
-      border: none;
-      outline: none;
+  .upload-file-button, .submit-button {
+    background-color: #fff;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+    cursor: pointer;
+    padding: 8px 16px;
+    min-width: 88px;
+    border-radius: 3px;
+    font-size: 14px;
+    text-align: center;
+    text-transform: uppercase;
+    text-decoration:none;
+    border: none;
+    outline: none;
 
-      &:hover {
-        background-color: rgba(158, 158, 158, 0.2);
-      }
+    &:hover {
+      background-color: rgba(158, 158, 158, 0.2);
     }
   }
 }

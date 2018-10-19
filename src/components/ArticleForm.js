@@ -69,23 +69,27 @@ export default class ArticleForm extends Component {
   render() {
     const { title, article, body } = this.state;
     const fileName = article.value;
+    const getFileName = (fileName) => fileName.replace('C:\\fakepath\\', '');
     return (
       <form onSubmit={this.handleSubmit} className="article-form">
-        <div className="title-container">
-          <label htmlFor="title">Title:</label>
-          <input name="title" value={title} onChange={this.handleChange} required />
+        <div className="form-item-container title-container">
+          <input className="form-item form-item-input" name="title" value={title} onChange={this.handleChange} required />
+          <label htmlFor="title" className="form-item-label">Article Title</label>
         </div>
         <div className="file-container">
-          <label htmlFor="article">File:</label>
-          <input type="file" name="article" value={ fileName } onChange={this.handleChange} />
-          { fileName && <XIcon className="remove-file-icon" onClick={() => this.clearFile()} /> }
+          <label htmlFor="file" className="upload-file-button">Select file</label>
+          <input type="file" className="file-input" name="article" id="file" value={fileName} onChange={this.handleChange} />
+          {fileName && <div className="uploaded-file-info">
+            <span className="file-name">{getFileName(fileName)}</span>
+            <XIcon className="remove-file-icon" onClick={() => this.clearFile()} />
+          </div>}
         </div>
-        <div className="body-container">
-          <label htmlFor="body">Body:</label>
-          <textarea name="body" value={ body } onChange={this.handleChange} disabled={fileName}></textarea>
+        <div className="form-item-container body-container">
+          <textarea name="body" className="form-item form-item-textarea" value={body} onChange={this.handleChange} disabled={fileName}></textarea>
+          <label htmlFor="body" className="form-item-label">Article Body</label>
         </div>
         <div className="submit-container">
-          <input type="submit" value="Submit" />
+          <input className="submit-button" type="submit" value="Submit" />
         </div>
       </form>
     );
