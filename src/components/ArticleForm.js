@@ -13,7 +13,8 @@ export default class ArticleForm extends Component {
       article: {
         value: '',
         files: null
-      }
+      },
+      id: new Date().getTime() 
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -39,16 +40,18 @@ export default class ArticleForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const { title, body, article } = this.state;
+    const { title, body, article, id } = this.state;
 
     let request = {
+      id,
       title,
-      body
+      body,
     };
 
     if (article.value) {
       request = {
-        ...request,
+        id,
+        title,
         article: article.files[0]
       }
     }

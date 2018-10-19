@@ -58,7 +58,8 @@ export const fetchArticleDetails = (id) => async dispatch => {
 }
 
 export const saveArticle = (article) => async dispatch => {
-  const id = article._id || new Date().getTime();
+  const id = article._id || article.id || new Date().getTime();
+
   const options = {
     method: 'POST',
     headers: {
@@ -80,8 +81,7 @@ export const saveArticle = (article) => async dispatch => {
 }
 
 export const saveArticleFile = (body) => async dispatch => {
-  const id = body._id || new Date().getTime();
-  console.log(body);
+  const id = body._id || body.id || new Date().getTime();
 
   const formData = new FormData();
 

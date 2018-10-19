@@ -2,14 +2,25 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { saveArticle, saveArticleFile } from '../actions/articles';
 import ArticleForm from '../components/ArticleForm';
-import { getAuthedUser } from '../reducers';
+import { getAuthedUser, isArticleFetching } from '../reducers';
 
 
 class CreateArticle extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      id: null
+    };
+
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const id = this.state.id;
+    if (id && prevProps.isArticleFetching(id) === true && this.props.isArticleFetching(id) === false) {
+      this.props.history.push('/');
+    }
   }
 
   handleSubmit(article) {
@@ -19,6 +30,11 @@ class CreateArticle extends Component {
     };
 
     const method = articleRequest.article ? this.props.saveArticleFile : this.props.saveArticle;
+
+    this.setState({
+      ...this.state, 
+      id: articleRequest.id
+    });
 
     method(articleRequest);
 
@@ -32,8 +48,9 @@ class CreateArticle extends Component {
   }
 }
 
-const mapStateToProps = (state, props) => ({
-  user: getAuthedUser(state)
+const mapStateToProps = (state) => ({
+  user: getAuthedUser(state),
+  isArticleFetching: (id) => isArticleFetching(id, state)
 })
 
 const mapDispatchToProps = (dispatch) => ({
