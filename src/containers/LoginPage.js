@@ -5,6 +5,7 @@ import LoginForm from '../components/LoginForm';
 import { Redirect } from 'react-router-dom';
 import { getAuthedUser, getAuthError, isAuthFetching } from '../reducers';
 import '../styles/login-page.scss';
+import Loader from '../components/Loader';
 
 class LoginPage extends Component {
   constructor(props) {
@@ -32,6 +33,8 @@ class LoginPage extends Component {
   render() {
     const { from } = this.props.location.state || { from: { pathname: "/" } };
     const { redirectToReferrer } = this.state;
+
+    if (this.props.isAuthFetching) { return <Loader /> }
 
     if (redirectToReferrer) {
       return <Redirect to={from} />;

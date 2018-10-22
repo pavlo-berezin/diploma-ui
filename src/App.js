@@ -10,6 +10,7 @@ import AppHeader from './components/AppHeader';
 import { getAuthedUser, isAuthFetching, getAuthError } from './reducers';
 import { fetchCurrentUser, logout } from './actions/auth';
 import { connect } from 'react-redux';
+import Loader from './components/Loader';
 
 class App extends Component {
   constructor(props) {
@@ -30,25 +31,29 @@ class App extends Component {
     console.log('logout');
     this.props.logout();
   }
-  
+
   render() {
     const { user, isAuthFetching } = this.props;
     const isAuthenticated = !isAuthFetching && user;
+    console.log(isAuthFetching);
+
 
     const PrivateRoute = ({ component: Component, ...rest }) => (
       <Route
         {...rest}
         render={props =>
-          isAuthenticated ? (
+          isAuthFetching ? (
+            <Loader />
+          ) : isAuthenticated ? (
             <Component {...props} />
           ) : (
-              <Redirect
-                to={{
-                  pathname: '/login',
-                  state: { from: props.location }
-                }}
-              />
-            )
+                <Redirect
+                  to={{
+                    pathname: '/login',
+                    state: { from: props.location }
+                  }}
+                />
+              )
         }
       />
     );

@@ -1,20 +1,68 @@
 .article {
-  .title {
-    font-family: sans-serif;
-    font-style: italic;
-    font-size: 24px;
-    padding: 5px;
-  }
-  .sub-title {
-    .author {
-      margin-right: 1em;
+  background-color: #fafafa;
+  padding: 20px 10px;
+  margin-bottom: 30px;
+  box-shadow: 2px 1px 2px #888;
+  width: 95%;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+
+  .title-section {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+
+    .article-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .author {
+        font-size: 16px;
+        color: rgba(0, 0, 0, 0.84)
+      }
+      
+      .date {
+        font-size: 12px;
+        color: dimgrey;
+      }
+    }
+
+    .article-title {
+      display: flex;
+      align-items: stretch;
+      font-size: 28px;
+      text-align: left;
     }
   }
+
   .body {
     text-align: left;
     white-space: pre-wrap;
   }
+
   .badges-list-container {
     text-align: left;
+
+    .badges-list {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      grid-gap: 5px;
+    }
+
+    .badge {
+      align-self: start;
+      font-size: 14px;
+      text-align: center;
+      margin: 0;
+    }
+  }
+
+  .delete-btn {
+    color: #D32F2F;
+    cursor: pointer;
+    position: absolute;
+    right: 25px;
   }
 }

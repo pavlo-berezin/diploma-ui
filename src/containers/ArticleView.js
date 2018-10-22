@@ -8,14 +8,30 @@ import '../styles/article-view.scss';
 
 class ArticleView extends Component {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      deleted: false
+    }
+  }
+
   componentWillMount() {
     const { fetchArticleDetails, match } = this.props;
     fetchArticleDetails(match.params.id);
   }
 
-  onDeleteArticleClick(article) {
+  componentDidUpdate() {
+    if (!this.props.article && this.state.deleted) { this.goToHomePage() }
+  }
+
+  onDeleteClick(article) {
     this.props.deleteArticle(article._id);
-    this.goToHomePage();
+
+    this.setState({
+      ...this.state,
+      deleted: true
+    });
   }
 
   goToHomePage() {
@@ -33,20 +49,19 @@ class ArticleView extends Component {
     if (!article) { return null; }
     return (
       <div className="article-view">
-        <span className="delete-btn" onClick={() => this.onDeleteArticleClick(article)}>Delete</span>
         <Article
           {...article} id={article._id} key={article._id}
           onBadgeClick={(category) => this.onBadgeClick(category)}
+          onDeleteClick={() => this.onDeleteClick(article)}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state, props) => {
-  const article = getArticle(props.match.params.id, state);
-  return { article }
-}
+const mapStateToProps = (state, props) => ({
+  article: getArticle(props.match.params.id, state)
+});
 
 const mapDispatchToProps = (dispatch) => ({
   fetchArticleDetails: (id) => dispatch(fetchArticleDetails(id)),
